@@ -1,3 +1,5 @@
+/**
+ */
 function steam_Sensor () {
     if (pins.digitalReadPin(DigitalPin.P0) == 1) {
         return 1
@@ -56,14 +58,9 @@ let strip: neopixel.Strip = null
 I2C_LCD1602.LcdInit(0)
 I2C_LCD1602.clear()
 basic.forever(function () {
-	
-})
-basic.forever(function () {
-    steam_Sensor()
-    if (steam_Sensor() == 1) {
-        music.setVolume(255)
-        music.ringTone(262)
-        music.setVolume(0)
+    if (motion_sensor()) {
+        music.setVolume(50)
+        music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
     } else {
         music.setVolume(0)
     }
